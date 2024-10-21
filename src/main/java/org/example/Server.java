@@ -7,6 +7,7 @@ import java.io.*;
 
 public class Server
 {
+    private final int ASSIGNMENT_PORT = 5000;
     //initialize socket and input stream
     private Socket          socket   = null;
     private ServerSocket    server   = null;
@@ -62,6 +63,28 @@ public class Server
 
     public static void main(String args[])
     {
-        Server server = new Server(5000);
+        //Server server = new Server(5001);
+        ClientListener l = new ClientListener();
+        Thread th = new Thread(l);
+        th.start();
     }
 }
+    class ClientListener implements Runnable{
+        ServerSocket ss;
+        Socket s;
+        public void run(){
+            try{
+
+                while(true){
+                    ss = new ServerSocket(5000);
+                    s = ss.accept();
+                    new DataOutputStream(s.getOutputStream()).writeUTF("Tu puerto es este: 25");
+                    s.close();
+                }
+
+            }
+            catch(Exception e){
+
+            }
+        }
+    }
