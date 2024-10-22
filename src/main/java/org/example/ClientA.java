@@ -125,7 +125,7 @@ public class ClientA {
     {
         ClientA clientA = new ClientA();
         clientA.getPortFromServer();
-        clientA.consoleLoop("127.0.0.1", 5000);
+        //clientA.consoleLoop("127.0.0.1", 5000);
     }
 
     class Listener implements Runnable{

@@ -10,6 +10,8 @@ public class ClientB {
     private Socket socket = null;
     private DataInputStream input = null;
     private DataOutputStream out = null;
+    private final String HOST = "127.0.0.1";
+    private final int HOST_PORT = 5000;
 
     // constructor to put ip address and port
     public ClientB()
@@ -59,6 +61,7 @@ public class ClientB {
 //            System.out.println(i);
 //        }
 
+
     }
     private void consoleLoop(String address, int port){
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
@@ -102,10 +105,27 @@ public class ClientB {
         }
     }
 
+    private int getPortFromServer(){
+        Socket s;
+        DataInputStream in;
+        try{
+            s = new Socket(HOST, HOST_PORT);
+            in = new DataInputStream(s.getInputStream());
+            System.out.println("El puerto será" + in.readUTF());
+            in.close();
+            s.close();
+        }
+        catch(Exception e){
+
+        }
+        return 0;
+    }
+
     public static void main(String args[])
     {
-        ClientB clientA = new ClientB();
-        clientA.consoleLoop("127.0.0.1", 5000);
+        ClientB clientB = new ClientB();
+        clientB.getPortFromServer();
+        //clientA.consoleLoop("127.0.0.1", 5000);
     }
 
     class Listener implements Runnable{

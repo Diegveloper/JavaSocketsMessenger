@@ -63,6 +63,7 @@ public class Server
 
     public static void main(String args[])
     {
+        System.out.println("Server has started");
         //Server server = new Server(5001);
         ClientListener l = new ClientListener();
         Thread th = new Thread(l);
@@ -72,19 +73,28 @@ public class Server
     class ClientListener implements Runnable{
         ServerSocket ss;
         Socket s;
+        int count = 0;
         public void run(){
             try{
-
+                System.out.println("Waiting for a client ...");
+                ss = new ServerSocket(5000);
                 while(true){
-                    ss = new ServerSocket(5000);
+
                     s = ss.accept();
-                    new DataOutputStream(s.getOutputStream()).writeUTF("Tu puerto es este: 25");
+                    new DataOutputStream(s.getOutputStream()).writeUTF("Tu puerto es este: " + count++);
+                    Thread.sleep(3000);
                     s.close();
                 }
 
             }
             catch(Exception e){
-
+                e.printStackTrace();
+            }
+            finally{
+                try{
+                    s.close();
+                }
+                catch(Exception e){}
             }
         }
     }
