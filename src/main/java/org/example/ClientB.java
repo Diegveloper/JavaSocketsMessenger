@@ -138,6 +138,7 @@ public class ClientB {
             String line = "";
             while(true) {
                 try {
+                    System.out.println("just to commit");
                     DataInputStream in = new DataInputStream(s.getInputStream());
                     line = in.readUTF();
                     System.out.println(line);
